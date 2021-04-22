@@ -105,43 +105,7 @@ for i=58:63
         imwrite(Icut_cube(:,:,j),ImagePath);
     end
 end
-
+getMAX();
 % 将'a.mat'文件复制到'用于神经网络训练的数据'
 copyfile('a.mat','用于神经网络训练的数据');
 
-
-% % 循环处理样本实物并将其归入测试集(共7个)
-% name = {'岩石1','岩石2','岩石3','岩石4','金属1','分辨率版','白板'};
-% for i=1:7
-%     %创建样本光谱图像文件夹
-%     OutputFolder = cell2mat(['./用于神经网络训练的数据/实物/光谱图像/',name(i)]);
-%     mkdir(OutputFolder)
-%     
-%     %对光谱图像进行几何校正
-%     Iregistered_cube = tformCalibratingnoshow(fullfile(dataPath,cell2mat(name(i)),'待校正光谱图像'));
-%     [~,FileNum,WaveLength] = getImageFileNames(fullfile(dataPath,cell2mat(name(i)),'待校正光谱图像'));
-%     
-%     %对光谱图像进行裁剪
-%     Icut_cube = uint16(zeros(ROI2(4)+1,ROI2(3)+1,FileNum));
-%     for j = 1:FileNum
-%         Icut_cube(:,:,j) = imresize(imcrop(Iregistered_cube(:,:,j),ROI1),[ROI2(4)+1,ROI2(3)+1]);
-%         ImagePath = fullfile(OutputFolder,[num2str(WaveLength(j)),'nm.tif']);
-%         imwrite(Icut_cube(:,:,j),ImagePath);
-%     end
-%     
-%     %创建样本模糊图像文件夹
-%     OutputFolder = ['./用于神经网络训练的数据/实物/模糊图像/',cell2mat(name(i))];
-%     mkdir(OutputFolder);
-%     
-%     %对模糊图像进行几何校正
-%     Iregistered_cube = tformCalibratingnoshow(fullfile(dataPath,cell2mat(name(i)),'色差模糊图像'));
-%     [~,FileNum,WaveLength] = getImageFileNames(fullfile(dataPath,cell2mat(name(i)),'待校正光谱图像'));
-%     
-%     %对模糊图像进行裁剪
-%     Icut_cube = uint16(zeros(ROI2(4)+1,ROI2(3)+1,FileNum));
-%     for j = 1:FileNum
-%         Icut_cube(:,:,j) = imcrop(Iregistered_cube(:,:,j),ROI2);
-%         ImagePath = fullfile(OutputFolder,[num2str(WaveLength(j)),'nm.tif']);
-%         imwrite(Icut_cube(:,:,j),ImagePath);
-%     end
-% end
